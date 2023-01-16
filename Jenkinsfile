@@ -1,12 +1,8 @@
 pipeline {
-
-    options {
-        buildDiscarder(logRotator(daysToKeepStr: '60'))
-        timeout(time: 4, unit: 'HOURS')
-        //skipDefaultCheckout()
-    }
-
-    parameters {
+    agent any
+   
+	
+	parameters {
         string(name: 'CF_URL', defaultValue: 'https://api.dev.kubecf.speedyorbit.com',
             description: '''
                 Using KubeCF
