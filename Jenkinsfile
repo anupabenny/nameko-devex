@@ -1,7 +1,8 @@
 pipeline {
-    agent any
-   
-	
+    agent {
+
+        label "master"
+    }
 	parameters {
         string(name: 'CF_URL', defaultValue: 'https://api.dev.kubecf.speedyorbit.com',
             description: '''
@@ -26,18 +27,7 @@ pipeline {
         stage('Prepare Dev Env') {
             parallel {
                 stage('Create Dev Conda Env'){                   
-                    steps {
-                        script {
-                            if (currentBuild.number == 1) {
-                                build(job: currentBuild.fullProjectName, propagate: false, wait: false)
-                                currentBuild.result = "ABORTED"
-                                error("Job #1: aborting and re-build for initialize parameters")
-                            }
-
-                            if (!params.PREFIX?.trim()) {
-                                env.PREFIX = sh(returnStdout: true, script: 'echo ${BUILD_TAG} | md5sum | cut -c -10').trim()
-                            }
-                        }      
+			steps {    
                                            
                         sh '''#!/bin/bash
                             conda env create -f environment_dev.yml > conda_create.log
