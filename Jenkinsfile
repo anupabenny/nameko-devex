@@ -47,11 +47,11 @@ pipeline {
                             echo "Starting Postgres Service"
                             DB_DIR=$(mktemp -d -t postgres.XXX)
                             echo ${DB_DIR}
-                            INIT_DB_PATH=/var/lib/jenkins/miniconda3/pkgs/postgresql-12.9-h16c4e8d_3/bin/
+                            INIT_DB_PATH=/usr/bin/
                             echo ${INIT_DB_PATH}
-                            
-                            initdb -L ${INIT_DB_PATH} -D ${DB_DIR}/postgres
-			    ls -lrt ${DB_DIR}/postgres
+                            mkdir ${DB_DIR}/postgres
+                            sudo -u jenkins initdb -L ${INIT_DB_PATH} -D ${DB_DIR}/postgres
+			    
 
                             # Configure pg_hdb.conf file
                             echo "host    all             all             0.0.0.0/0            trust" >> ${DB_DIR}/postgres/pg_hba.conf
