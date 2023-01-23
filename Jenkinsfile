@@ -26,14 +26,6 @@ pipeline {
     stages {
         stage('Prepare Dev Env') {
             parallel {
-                stage('Create Dev Conda Env'){                   
-			steps {    
-                                           
-                        sh '''#!/bin/bash
-                            conda env create -f environment_dev.yml > conda_create.log
-                        '''
-                    }                    
-                }
                 stage('Start Local BackServices') {
                     steps {
                         sh '''#!/bin/bash
