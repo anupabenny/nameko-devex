@@ -34,7 +34,7 @@ pipeline {
                             rabbitmq-plugins enable rabbitmq_management
                             rabbitmqctl add_user "rabbit" "rabbit"
                             rabbitmqctl set_user_tags rabbit administrator
-                            rabbitmqctl set_permissions --vhost '/' 'rabbit' '.' '.' '.' 
+                            rabbitmqctl set_permissions -p '/' 'rabbit' '.*' '.*' '.*' 
 			   
                             echo "Starting Redis Service"
                             # get config file for version 5
@@ -45,7 +45,7 @@ pipeline {
 			   
 
                             echo "Starting Postgres Service"
-                            DB_DIR=$(mktemp -d -t postgres)
+                            DB_DIR=$(mktemp -d -t postgres.XXX)
                             echo ${DB_DIR}
                             INIT_DB_PATH=/var/lib/jenkins/miniconda3/pkgs/postgresql-12.9-h16c4e8d_3/bin/initdb
                             echo ${INIT_DB_PATH}
