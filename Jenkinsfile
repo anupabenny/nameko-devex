@@ -54,18 +54,18 @@ pipeline {
 			    
 
                             # Configure pg_hdb.conf file
-                            echo "host    all             all             0.0.0.0/0            trust" >> ${DB_DIR}/postgres/pg_hba.conf
-                            echo "host    replication             all             0.0.0.0/0            trust" >> ${DB_DIR}/postgres/pg_hba.conf
-                            echo "port = 5432" >> ${DB_DIR}/postgres/my_custom.conf
-                            echo "listen_addresses = '0.0.0.0'" >> ${DB_DIR}/postgres/my_custom.conf
-                            echo "include = 'my_custom.conf'" >> ${DB_DIR}/postgres/postgresql.conf
+                            su - postgres -c "echo "host    all             all             0.0.0.0/0            trust" >> ${DB_DIR}/postgres/pg_hba.conf"
+                            su - postgres -c "echo "host    replication             all             0.0.0.0/0            trust" >> ${DB_DIR}/postgres/pg_hba.conf"
+                            su - postgres -c "echo "port = 5432" >> ${DB_DIR}/postgres/my_custom.conf"
+                            su - postgres -c "echo "listen_addresses = '0.0.0.0'" >> ${DB_DIR}/postgres/my_custom.conf"
+                            su - postgres -c "echo "include = 'my_custom.conf'" >> ${DB_DIR}/postgres/postgresql.conf"
 
-                            postgres -i -N 200 -D ${DB_DIR}/postgres &
+                            su - postgres -c "postgres -i -N 200 -D ${DB_DIR}/postgres &"
 
                             sleep 5
-                            createuser --no-password --superuser postgres
+                            su - postgres -c "createuser --no-password --superuser postgres"
                             # createdb --owner=postgres postgres
-                            echo "GRANT CONNECT ON DATABASE postgres TO postgres;" | psql postgres
+                            su - postgres -c "echo "GRANT CONNECT ON DATABASE postgres TO postgres;" | psql postgres"
                             echo "Users and local db is created..."
                         '''
                     }
