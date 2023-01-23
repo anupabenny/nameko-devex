@@ -45,9 +45,9 @@ pipeline {
 			   
 
                             echo "Starting Postgres Service"
-                            DB_DIR=$(mktemp -d -t postgres.XXX)
+                            DB_DIR=$(mktemp -d -t postgres)
                             echo ${DB_DIR}
-                            INIT_DB_PATH=${HOME}/.conda/envs/postgres/share
+                            INIT_DB_PATH=/var/lib/jenkins/miniconda3/pkgs/postgresql-12.9-h16c4e8d_3/bin/initdb
                             echo ${INIT_DB_PATH}
 
                             initdb -L ${INIT_DB_PATH} -D ${DB_DIR}/postgres
