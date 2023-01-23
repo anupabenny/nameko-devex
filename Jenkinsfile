@@ -51,6 +51,7 @@ pipeline {
                             echo ${INIT_DB_PATH}
 
                             initdb -L ${INIT_DB_PATH} -D ${DB_DIR}/postgres
+			    ls -lrt ${DB_DIR}/postgres
 
                             # Configure pg_hdb.conf file
                             echo "host    all             all             0.0.0.0/0            trust" >> ${DB_DIR}/postgres/pg_hba.conf
