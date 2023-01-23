@@ -64,8 +64,7 @@ pipeline {
 
                             sleep 5
                             su - postgres -c "createuser --no-password --superuser postgres"
-                            # createdb --owner=postgres postgres
-                            su - postgres -c "psql"
+                            su - postgres -c "createdb --owner=postgres postgres"
                             echo "Users and local db is created..."
                         '''
                     }
