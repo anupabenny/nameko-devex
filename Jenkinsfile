@@ -29,28 +29,22 @@ pipeline {
                 stage('Start Local BackServices') {
                     steps {
                         sh '''#!/bin/bash
-                            echo "Starting RabbitMQ Service"
-                            source activate /var/lib/jenkins/miniconda3/envs/rabbitmq
                             rabbitmq-server -detached
                             sleep 30
                             rabbitmq-plugins enable rabbitmq_management
                             rabbitmqctl add_user "rabbit" "rabbit"
                             rabbitmqctl set_user_tags rabbit administrator
                             rabbitmqctl set_permissions --vhost '/' 'rabbit' '.' '.' '.' 
-			    conda deactivate
-
+			   
                             echo "Starting Redis Service"
-                            source activate /var/lib/jenkins/miniconda3/envs/redis
                             # get config file for version 5
-                            curl -s https://raw.githubusercontent.com/antirez/redis/5.0/redis.conf > ./redis.conf
-                            redis-server ./redis.conf  --daemonize yes
+                            curl -s https://raw.githubusercontent.com/antirez/redis/5.0/redis.conf > /etc/redis/redis.conf
+                            redis-server /etc/redis/redis.conf  --daemonize yes
                             sleep 5
                             echo 'CONFIG Set "requirePass" ""' | redis-cli
-			    conda deactivate
+			   
 
                             echo "Starting Postgres Service"
-                            # source activate /var/lib/jenkins/miniconda3/envs/postgres
-                            source activate postgres
                             DB_DIR=$(mktemp -d -t postgres.XXX)
                             echo ${DB_DIR}
                             INIT_DB_PATH=${HOME}/.conda/envs/postgres/share
