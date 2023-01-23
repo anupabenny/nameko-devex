@@ -49,7 +49,7 @@ pipeline {
                             echo ${DB_DIR}
                             INIT_DB_PATH=/var/lib/jenkins/miniconda3/pkgs/postgresql-12.9-h16c4e8d_3/bin/
                             echo ${INIT_DB_PATH}
-                            mkdir ${DB_DIR}/postgres
+                            
                             initdb -L ${INIT_DB_PATH} -D ${DB_DIR}/postgres
 			    ls -lrt ${DB_DIR}/postgres
 
