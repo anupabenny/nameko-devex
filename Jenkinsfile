@@ -30,7 +30,7 @@ pipeline {
                     steps {
                         sh '''#!/bin/bash
                             echo "Starting RabbitMQ Service"
-                            source activate rabbitmq
+                            source activate /var/lib/jenkins/miniconda3/envs/rabbitmq
                             rabbitmq-server -detached
                             sleep 30
                             rabbitmq-plugins enable rabbitmq_management
@@ -40,7 +40,7 @@ pipeline {
 			    conda deactivate
 
                             echo "Starting Redis Service"
-                            source activate redis
+                            source activate /var/lib/jenkins/miniconda3/envs/redis
                             # get config file for version 5
                             curl -s https://raw.githubusercontent.com/antirez/redis/5.0/redis.conf > ./redis.conf
                             redis-server ./redis.conf  --daemonize yes
@@ -49,7 +49,7 @@ pipeline {
 			    conda deactivate
 
                             echo "Starting Postgres Service"
-                            # source activate postgres
+                            # source activate /var/lib/jenkins/miniconda3/envs/postgres
                             source activate postgres
                             DB_DIR=$(mktemp -d -t postgres.XXX)
                             echo ${DB_DIR}
