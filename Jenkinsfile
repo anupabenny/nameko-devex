@@ -47,10 +47,10 @@ pipeline {
                             echo "Starting Postgres Service"
                             DB_DIR=$(mktemp -d -t postgres.XXX)
                             echo ${DB_DIR}
-                            INIT_DB_PATH=/usr/bin/
+                            INIT_DB_PATH=/usr/share/pgsql/
                             echo ${INIT_DB_PATH}
-                            mkdir ${DB_DIR}/postgres
-                            sudo -u jenkins initdb -L ${INIT_DB_PATH} -D ${DB_DIR}/postgres
+                            su - postgres -c "mkdir ${DB_DIR}/postgres"
+                            su - postgres -c "initdb -L ${INIT_DB_PATH} -D ${DB_DIR}/postgres"
 			    
 
                             # Configure pg_hdb.conf file
