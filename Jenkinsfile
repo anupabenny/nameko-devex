@@ -45,6 +45,7 @@ pipeline {
                             rabbitmqctl add_user "rabbit" "rabbit"
                             rabbitmqctl set_user_tags rabbit administrator
                             rabbitmqctl set_permissions --vhost '/' 'rabbit' '.' '.' '.' 
+			    conda deactivate
 
                             echo "Starting Redis Service"
                             source activate redis
@@ -53,10 +54,10 @@ pipeline {
                             redis-server ./redis.conf  --daemonize yes
                             sleep 5
                             echo 'CONFIG Set "requirePass" ""' | redis-cli
+			    conda deactivate
 
                             echo "Starting Postgres Service"
-                            echo "Starting Postgres Service"
-                            # source activate ${HOME}/.conda/envs/postgres
+                            # source activate postgres
                             source activate postgres
                             DB_DIR=$(mktemp -d -t postgres.XXX)
                             echo ${DB_DIR}
