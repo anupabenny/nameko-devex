@@ -45,7 +45,7 @@ pipeline {
 			   
 
                             echo "Starting Postgres Service"
-                            DB_DIR=$(mktemp -d -t postgres.XXX)
+			    DB_DIR=$(su - postgres -c "mktemp -d -t postgres.XXX")
                             echo ${DB_DIR}
                             INIT_DB_PATH=/usr/share/pgsql/
                             echo ${INIT_DB_PATH}
