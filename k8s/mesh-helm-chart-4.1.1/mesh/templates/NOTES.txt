@@ -1,0 +1,2 @@
+Traefik Mesh {{ .Chart.AppVersion }} has been deployed successfully
+on the {{ .Release.Namespace }} namespace!
