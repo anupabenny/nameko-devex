@@ -1,4 +1,4 @@
-FROM python:3.7-slim-stretch as base
+FROM python:3.10-slim as base
 
 RUN apt-get update && \
     apt-get install --yes curl netcat
@@ -22,7 +22,7 @@ RUN apt-get update && \
     apt-get install --yes build-essential autoconf libtool pkg-config \
     libgflags-dev libgtest-dev clang libc++-dev automake git libpq-dev
 
-RUN pip install auditwheel
+RUN pip3 install auditwheel
 
 COPY . /application
 
