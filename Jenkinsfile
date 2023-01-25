@@ -8,6 +8,9 @@ pipeline {
                     steps {                    
                         sh '''#!/bin/bash
 			    export "PATH=$PATH:/var/lib/jenkins/miniconda3/bin"
+			    docker ps | grep devRabbit
+			    docker ps | grep devRedis
+			    docker ps | grep devPostgres
                            '''
                     }                    
                 }
