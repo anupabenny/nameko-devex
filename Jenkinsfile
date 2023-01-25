@@ -31,7 +31,7 @@ pipeline {
                     source activate nameko-devex
                     echo "Start app service ..."
                     ./dev_run.sh gateway.service orders.service products.service > app.log &
-                    sleep 5
+                    sleep 100
                     echo "Start smoketest ..."
                     ./test/nex-smoketest.sh local
 				'''
