@@ -30,7 +30,7 @@ pipeline {
 				export "PATH=$PATH:/var/lib/jenkins/miniconda3/bin"
                     source activate nameko-devex
                     echo "Start app service ..."
-                    ./dev_run.sh orders.service gateway.service products.service > app.log &
+                    ./dev_run.sh gateway.service orders.service products.service > app.log &
                     sleep 5
                     echo "Start smoketest ..."
                     ./test/nex-smoketest.sh local
