@@ -11,17 +11,7 @@ pipeline {
                            '''
                     }                    
                 }
-                stage('Start Local BackServices') {
-                    steps {
-                        sh '''#!/bin/bash
-			export "PATH=$PATH:/var/lib/jenkins/miniconda3/bin"
-                            source activate nameko-devex
-			          ./dev_run_backingsvcs.sh
-                        '''
-                    }
-                }
-
-            }
+             }
         }
 
             stage('Smoke Test') {
