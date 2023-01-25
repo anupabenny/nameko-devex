@@ -3,14 +3,14 @@ channels:
 - conda-forge
 dependencies:
 - openjdk=8.0                       #dev
-- python=3.7
-- pip==21
+- python=3.9
+- pip=22
 - pip:
     - nameko==v3.0.0-rc9
     - fastapi==0.70.0
     - uvicorn==0.15.0
     - marshmallow==2.19.2
-    - psycopg2-binary==2.8.2
+    - psycopg2-binary==2.9.3
     - nameko-sqlalchemy==1.5.0
     - alembic==1.0.10
     - pylint==2.5.2                 #dev

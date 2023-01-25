@@ -1,4 +1,4 @@
-PREFIX ?= localdev
+PREFIX ?= demo
 HTMLCOV_DIR ?= htmlcov
 TAG ?= dev
 IMAGES := orders products gateway

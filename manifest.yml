@@ -14,7 +14,7 @@ defaults: &defaults
 
 # Majestic Monolith - All in One
 applications:
-  - name: nex-nameko-devex
+  - name: nameko
     <<: *defaults
     no-route: false
     health-check-type: port
