@@ -5,7 +5,7 @@ IMAGES := orders products gateway
 
 CF_ORG ?= eed7cb82trial
 CF_SPACE ?= dev
-CF_APP ?= nameko-devex
+CF_APP ?= nameko
 
 install-dependencies:
 	pip install -U -e "orders/.[dev]"
@@ -86,13 +86,13 @@ cf_ds_postgres:
 			sleep 1; \
 	done 
 
-#cf_cs_rabbitmq:
-#	cf cs enterprise-messaging dev $(CF_APP)_rabbitmq
-#	echo "Waiting for service to be created"
-#	for i in $$(seq 1 90); do \
-#		cf service $(CF_APP)_rabbitmq | grep  "create succeeded" 2> /dev/null && break; \
-#			sleep 1; \
-#	done 
+cf_cs_rabbitmq:
+	cf cs rabbitmq trial $(CF_APP)_rabbitmq
+	echo "Waiting for service to be created"
+	for i in $$(seq 1 90); do \
+		cf service $(CF_APP)_rabbitmq | grep  "create succeeded" 2> /dev/null && break; \
+			sleep 1; \
+	done 
 
 cf_ds_rabbitmq:
 	cf ds $(CF_APP)_rabbitmq -f
@@ -118,15 +118,12 @@ cf_ds_redis:
 			sleep 1; \
 	done 
 
-deployCF: cf_target cf_cs_postgres cf_cs_redis
+deployCF: cf_target cf_cs_postgres cf_cs_redis cf_cs_rabbitmq
 	cf delete $(CF_APP) -f
-	# create environment.yml file from environment_dev.yml file
-	cat environment_dev.yml | grep -v '#dev' > environment.yml
-	cf push $(CF_APP) --no-start
-	rm -f environment.yml
+	cf push --no-start
 
 	cf bind-service $(CF_APP) $(CF_APP)_postgres
-	#cf bind-service $(CF_APP) $(CF_APP)_rabbitmq
+	cf bind-service $(CF_APP) $(CF_APP)_rabbitmq
 	cf bind-service $(CF_APP) $(CF_APP)_redis
 	cf start $(CF_APP)
 

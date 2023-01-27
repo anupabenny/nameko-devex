@@ -1,45 +1,18 @@
 ---
 defaults: &defaults
-  buildpacks:
-    - python_buildpack
-  memory: 2G
-  disk_quota: 2G
-  health-check-type: port
-  no-route: true
   services:
-    - demo_postgres
-    - demo_redis
+    - nameko_postgres
+    - nameko_redis
+    - nameko_rabbitmq
   env:
     APP_ENV: HelloWorld
 
-# Majestic Monolith - All in One
 applications:
-  - name: nameko
-    <<: *defaults
-    no-route: false
-    health-check-type: port
-      #command: FASTAPI=X ./cf_run.sh products.service orders.service
-    command: ./cf_run.sh products.service orders.service gateway.service
+- name: nameko
+  <<: *defaults
+  routes:
+    - route: nameko.cfapps.us10-001.hana.ondemand.com
+  memory: 128M
+  buildpack: python_buildpack
+  command: bash ./cf_run.sh gateway.service orders.service products.service
 
-# Majestic Microservice (need to uncomment above)
-# applications:
-#   - name: nex-namekoexample
-#     <<: *defaults
-#     no-route: false
-#     health-check-type: port
-#     memory: 128M
-#     command: bash ./cf_run.sh gateway.service 
-
-#   - name: nex-namekoexample-orders
-#     <<: *defaults
-#     no-route: true
-#     health-check-type: process
-#     memory: 128M
-#     command: bash ./cf_run.sh orders.service
-
-#   - name: nex-namekoexample-products
-#     <<: *defaults
-#     no-route: true
-#     health-check-type: process
-#     memory: 128M
-#     command: bash ./cf_run.sh products.service
