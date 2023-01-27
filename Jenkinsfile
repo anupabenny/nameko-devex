@@ -23,8 +23,8 @@ pipeline {
 				export "PATH=$PATH:/var/lib/jenkins/miniconda3/bin"
                     source activate nameko-devex
                     echo "Start app service ..."
-                    ./dev_run.sh gateway.service orders.service products.service > app.log &
-                    sleep 5
+                    make deploy-docker > app.log &
+                    sleep 10
                     echo "Start smoketest ..."
                     make smoke-test
 				'''
