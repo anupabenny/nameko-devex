@@ -11,6 +11,7 @@ pipeline {
 			    docker ps | grep rabbit
 			    docker ps | grep redis
 			    docker ps | grep postgres
+			    ./dev_run_backingsvcs.sh
                            '''
                     }                    
                 }
