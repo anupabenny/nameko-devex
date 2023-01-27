@@ -8,9 +8,9 @@ pipeline {
                     steps {                    
                         sh '''#!/bin/bash
 			    export "PATH=$PATH:/var/lib/jenkins/miniconda3/bin"
-			    docker ps | grep devRabbit
-			    docker ps | grep devRedis
-			    docker ps | grep devPostgres
+			    docker ps | grep rabbit
+			    docker ps | grep redis
+			    docker ps | grep postgres
                            '''
                     }                    
                 }
@@ -26,7 +26,7 @@ pipeline {
                     ./dev_run.sh gateway.service orders.service products.service > app.log &
                     sleep 5
                     echo "Start smoketest ..."
-                    ./test/nex-smoketest.sh local
+                    make smoke-test
 				'''
             }
         }
