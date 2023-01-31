@@ -10,7 +10,7 @@ pipeline {
 			    export "PATH=$PATH:/var/lib/jenkins/miniconda3/bin"
 			    source activate nameko-devex
 			    sleep 5
-			    ./dev_run_backingsvcs.sh
+			    ./dev_rm_backingsvcs.sh
 			    sleep 5
                            '''
                     }                    
