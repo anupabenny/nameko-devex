@@ -8,8 +8,17 @@ pipeline {
                     steps {                    
                         sh '''#!/bin/bash
 			    export "PATH=$PATH:/var/lib/jenkins/miniconda3/bin"
-			    source activate nameko-devex
-			    ./dev_run_backingsvcs.sh
+			    conda env create -f environment_dev.yml > conda_create.log
+			    sleep 50
+                           '''
+                    }                    
+                }
+		  stage('Start backend services'){                   
+                  steps {                    
+                     sh '''#!/bin/bash
+			  export "PATH=$PATH:/var/lib/jenkins/miniconda3/bin"
+			  source activate nameko-devex
+			  ./dev_run_backingsvcs.sh
                            '''
                     }                    
                 }
@@ -18,8 +27,8 @@ pipeline {
 
             stage('Smoke Test') {
             steps {
-				sh '''#!/bin/bash
-				export "PATH=$PATH:/var/lib/jenkins/miniconda3/bin"
+		     sh '''#!/bin/bash
+		    export "PATH=$PATH:/var/lib/jenkins/miniconda3/bin"
                     source activate nameko-devex
                     echo "Start app service ..."
                     ./dev_run.sh gateway.service orders.service products.service > app.log &
