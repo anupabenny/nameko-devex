@@ -12,6 +12,8 @@ pipeline {
 			    sleep 5
 			    ./dev_rm_backingsvcs.sh
 			    sleep 5
+			    ./dev_run_backingsvcs.sh
+			    sleep 5
                            '''
                     }                    
                 }
@@ -20,7 +22,7 @@ pipeline {
                      sh '''#!/bin/bash
 			  export "PATH=$PATH:/var/lib/jenkins/miniconda3/bin"
 			  source activate nameko-devex
-			  make deploy-docker > app.log &
+			  ./dev_run.sh gateway.service orders.service products.service > app.log &
 			  sleep 20
                            '''
                     }                    
