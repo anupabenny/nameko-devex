@@ -45,7 +45,7 @@ pipeline {
 		    export "PATH=$PATH:/var/lib/jenkins/miniconda3/bin"
                     source activate nameko-devex
                     echo "Start Perf test..."
-                    ./dev_pytest.sh
+                    make perf-test
 				'''
             }
         }
