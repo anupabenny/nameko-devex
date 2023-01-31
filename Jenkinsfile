@@ -21,7 +21,7 @@ pipeline {
 			  export "PATH=$PATH:/var/lib/jenkins/miniconda3/bin"
 			  source activate nameko-devex
 			  make deploy-docker > app.log
-			  sleep 20
+			  sleep 5
                            '''
                     }                    
                 }
@@ -45,7 +45,7 @@ pipeline {
                     source activate nameko-devex
                     echo "Start Perf test..."
                     make perf-test
-		    sleep 50
+		    sleep 5
 				'''
             }
         }
