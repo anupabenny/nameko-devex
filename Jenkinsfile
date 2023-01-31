@@ -46,6 +46,7 @@ pipeline {
                     source activate nameko-devex
                     echo "Start Perf test..."
                     make perf-test
+		    sleep 50
 				'''
             }
         }
