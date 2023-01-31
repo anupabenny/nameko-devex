@@ -8,8 +8,8 @@ pipeline {
                     steps {                    
                         sh '''#!/bin/bash
 			    export "PATH=$PATH:/var/lib/jenkins/miniconda3/bin"
-			    conda env create -f environment_dev.yml > conda_create.log
-			    sleep 50
+			    source activate nameko-devex
+			    sleep 5
                            '''
                     }                    
                 }
