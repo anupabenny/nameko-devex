@@ -9,11 +9,9 @@ pipeline {
                         sh '''#!/bin/bash
 			    export "PATH=$PATH:/var/lib/jenkins/miniconda3/bin"
 			    source activate nameko-devex
-			    sleep 5
-			    ./dev_rm_backingsvcs.sh
-			    sleep 5
-			    ./dev_run_backingsvcs.sh
-			    sleep 5
+			    docker ps | grep rabbit
+			    docker ps | grep redis
+			    docker ps | grep postgres
                            '''
                     }                    
                 }
@@ -22,8 +20,8 @@ pipeline {
                      sh '''#!/bin/bash
 			  export "PATH=$PATH:/var/lib/jenkins/miniconda3/bin"
 			  source activate nameko-devex
-			  ./dev_run.sh gateway.service orders.service products.service > app.log &
-			  sleep 20
+			  make deploy-docker > app.log &
+			  sleep 5
                            '''
                     }                    
                 }
