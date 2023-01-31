@@ -19,6 +19,7 @@ pipeline {
 			  export "PATH=$PATH:/var/lib/jenkins/miniconda3/bin"
 			  source activate nameko-devex
 			  ./dev_run_backingsvcs.sh
+			  sleep 10
                            '''
                     }                    
                 }
@@ -35,6 +36,16 @@ pipeline {
                     sleep 50
                     echo "Start smoketest ..."
                     ./test/nex-smoketest.sh local
+				'''
+            }
+        }
+	    stage('Perf Test') {
+            steps {
+		     sh '''#!/bin/bash
+		    export "PATH=$PATH:/var/lib/jenkins/miniconda3/bin"
+                    source activate nameko-devex
+                    echo "Start Perf test..."
+                    ./dev_pytest.sh
 				'''
             }
         }
