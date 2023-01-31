@@ -21,7 +21,7 @@ pipeline {
 			  export "PATH=$PATH:/var/lib/jenkins/miniconda3/bin"
 			  source activate nameko-devex
 			  make deploy-docker > app.log &
-			  sleep 5
+			  sleep 20
                            '''
                     }                    
                 }
